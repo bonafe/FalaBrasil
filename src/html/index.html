@@ -1,0 +1,109 @@
+<html>
+<head>
+    <style>
+        *, *:before, *:after {
+          box-sizing: border-box;
+        }
+
+
+        .container-digitos-cpf{
+            border: 2px solid rgb(80, 33, 33);
+            text-align: center;
+            font-weight: bold;
+            font-size: 50px;
+            padding:10px;            
+            display:table;
+            margin:0 auto;
+        }
+
+        .digito-cpf{
+            border: 2px solid rgb(224, 29, 29);            
+            width: 50px;
+            height: 50px;            
+            text-align: center;
+            font-weight: bold;
+            font-size: 50px;
+        }
+
+    </style>
+    <script type="module">
+
+        import {FalaBrasil} from './fala_brasil.js';
+        
+        window.zerar = () => {
+
+            for (let i = 1; i <= 11; i++){
+                
+                let id_componente_digito = "cpf_" + i;
+                let componente = document.getElementById (id_componente_digito);
+
+                componente.value = "";
+            }
+
+        }
+
+        window.reconheceu_cpf = (numeros_cpf, cpf_valido) => {
+
+            window.zerar();
+
+            if (numeros_cpf.length > 11){
+
+                alert ("CPF Inválido: Maior que 12 dígitos");                
+
+            }else{                
+
+                for (let indice_numero in numeros_cpf){
+
+                    let numero = numeros_cpf [indice_numero];
+
+                    let numero_digito = parseInt (indice_numero) + 1;
+
+                    let id_componente_digito = "cpf_" + numero_digito;
+
+                    let componente = document.getElementById (id_componente_digito);
+
+                    componente.value = numero;
+                }
+
+                if (numeros_cpf.length == 11){
+
+                    if (cpf_valido){
+
+                        let componente_cpf_encontrados = document.getElementById ("cpf_encontrados");
+
+                        componente_cpf_encontrados.value = componente_cpf_encontrados.value + numeros_cpf + "\n";                        
+                    }
+                }
+            }
+
+            
+        }
+
+        window.onload = () => {
+            window.reconhecimento = new FalaBrasil();
+            window.reconhecimento.reconhecer_cpf(window.reconheceu_cpf);
+        }
+    </script> 
+</head>
+<body>
+    <div>
+        <h1>CPF</h1>
+        <span class="container-digitos-cpf">
+            <input type="text" maxlength="1" id="cpf_1" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_2" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_3" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_4" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_5" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_6" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_7" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_8" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_9" class="digito-cpf">
+            -
+            <input type="text" maxlength="1" id="cpf_10" class="digito-cpf">
+            <input type="text" maxlength="1" id="cpf_11" class="digito-cpf">            
+        </span>
+        <h2>CPF Encontrados</h2>
+        <textarea rows="10" cols ="15" id="cpf_encontrados"></textarea>
+    </div>
+</body>
+</html>
