@@ -1,11 +1,16 @@
 
 
 
-export class ReconhecedorFala {
+export class ReconhecedorFala  extends EventTarget{
+
+
+
+  static EVENTO_RECONHECEU_FALA = "Evento Reconheceu Fala";
 
 
 
   constructor() {
+    super();
 
     this.reconhecedor = new webkitSpeechRecognition();
     this.reconhecedor.continuous = true;
@@ -19,9 +24,14 @@ export class ReconhecedorFala {
 
 
 
-  reconhecer(callback) {
-    console.info(`Iniciando reconhecimento de voz`);
-    this.callback = callback;
+  abortar(){
+    this.reconhecedor.abort();    
+  }
+
+
+
+  reconhecer() {
+    console.info(`Iniciando reconhecimento de voz`);    
     this.reconhecedor.lang = 'pt-BR';
     this.reconhecedor.start();
     this.deveTerminar = false;
@@ -62,7 +72,12 @@ export class ReconhecedorFala {
 
       console.info(`Resultado ${(evento.results[i].isFinal ? "FINAL" : "parcial")} reconhecimento de voz: ${evento.results[i][0].transcript}`);
 
-      this.callback(evento.results[i][0].transcript, evento.results[i].isFinal);      
+      const evento_reconheceu_fala = new CustomEvent(ReconhecedorFala.EVENTO_RECONHECEU_FALA, {detail:{
+        transcricao:evento.results[i][0].transcript,
+        final:evento.results[i].isFinal
+      }});      
+
+      this.dispatchEvent(evento_reconheceu_fala);
     }
   }
 
