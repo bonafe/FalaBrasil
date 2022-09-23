@@ -4,7 +4,7 @@
 import {FalaBrasil} from './componentes/fala_brasil.js';
 import {CPFBrasil} from './componentes/cpf/cpf_brasil.js';
 import { ReconhecedorFala } from './componentes/reconhecedor_fala.js';
-
+import { TextoParaVoz } from './componentes/texto_para_voz.js';
 
 
 window.onload = () => {
@@ -36,6 +36,8 @@ window.reconheceu_cpf = (numeros_cpf, cpf_valido) => {
     if (numeros_cpf.length == 11){
 
         if (cpf_valido){            
+
+            TextoParaVoz.INSTANCE.falar (`CPF válido foi detectado! Número ${numeros_cpf}`);
 
             let componente_cpf_encontrados = document.getElementById ("cpf_encontrados");
 
