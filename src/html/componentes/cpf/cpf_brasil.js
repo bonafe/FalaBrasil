@@ -47,11 +47,28 @@ export class CPFBrasil extends HTMLElement{
 
     
 
-    preencher(numeros_cpf){
+    preencher(numeros, valido){
 
-        for (let indice_numero in numeros_cpf){
 
-            let numero = numeros_cpf [indice_numero];
+        //Atualiza a borda do compomente
+        let elementoLinhaDigitos = this.shadowDOM.querySelector(".digitos");
+
+        if (valido && !elementoLinhaDigitos.classList.contains("valido")){
+
+            elementoLinhaDigitos.classList.add("valido");
+            elementoLinhaDigitos.classList.remove("invalido");
+            
+        }else if (!valido && !elementoLinhaDigitos.classList.contains("invalido")){
+        
+            elementoLinhaDigitos.classList.add("invalido");
+            elementoLinhaDigitos.classList.remove("valido");  
+        }
+
+
+        //Atualiza os números
+        for (let indice_numero in numeros){
+
+            let numero = numeros [indice_numero];
 
             let numero_digito = parseInt (indice_numero) + 1;
 

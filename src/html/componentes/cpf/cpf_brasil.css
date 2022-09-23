@@ -2,9 +2,14 @@
     text-align: center; 
 }
 
-.selecionado{
+.valido{
     box-shadow:
         0 0 1em rgb(0, 255, 8);
+}
+
+.invalido{
+    box-shadow:
+        0 0 1em rgb(251, 94, 3);
 }
 
 .digitos{
