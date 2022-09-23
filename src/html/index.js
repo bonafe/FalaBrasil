@@ -37,7 +37,7 @@ window.reconheceu_cpf = (numeros_cpf, cpf_valido) => {
 
         if (cpf_valido){            
 
-            TextoParaVoz.INSTANCE.falar (`CPF válido foi detectado! Número ${numeros_cpf}`);
+            TextoParaVoz.INSTANCE.falar (`CPF válido foi detectado!`);
 
             let componente_cpf_encontrados = document.getElementById ("cpf_encontrados");
 
